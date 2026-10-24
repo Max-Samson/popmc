@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>麦盒 McBox · 卡面预览</title>
+<style>
+  :root { --bg:#14100f; --card:#1f1917; --line:rgba(255,255,255,.1); --fg:#f5efe8;
+          --dim:rgba(245,239,232,.55); --gold:#f2c14e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font-family:"PingFang SC","Noto Sans SC",-apple-system,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:48px 28px 72px; }
+  header { border-bottom:1px solid var(--line); padding-bottom:26px; margin-bottom:34px; }
+  .kicker { color:var(--gold); font-size:13px; letter-spacing:.22em; text-transform:uppercase; }
+  h1 { margin:10px 0 8px; font-size:40px; letter-spacing:-.02em; }
+  .sub { color:var(--dim); font-size:15px; line-height:1.7; max-width:780px; }
+  .sub b { color:var(--fg); font-weight:600; }
+  .meta { margin-top:14px; font-size:12px; color:var(--dim); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:20px; }
+  figure { margin:0; background:var(--card); border:1px solid var(--line); border-radius:16px;
+           padding:13px; transition:transform .2s ease, border-color .2s ease; }
+  figure:hover { transform:translateY(-3px); border-color:rgba(242,193,78,.45); }
+  figure.wide { grid-column:span 2; }
+  figure img { width:100%; display:block; border-radius:10px; }
+  figcaption { margin-top:11px; font-size:12px; color:var(--dim);
+               display:flex; justify-content:space-between; gap:8px; }
+  figcaption b { color:var(--fg); font-weight:600; }
+  .tag { display:inline-block; padding:1px 7px; border-radius:99px; font-size:11px;
+         border:1px solid rgba(242,193,78,.4); color:var(--gold); margin-right:6px; }
+  .notes { margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+  .note { background:var(--card); border:1px solid var(--line); border-left:2px solid var(--gold);
+          border-radius:12px; padding:18px 20px; }
+  .note h3 { margin:0 0 8px; font-size:14px; }
+  .note p { margin:0; font-size:13px; line-height:1.75; color:var(--dim); }
+  code { background:rgba(255,255,255,.07); padding:1px 6px; border-radius:4px; font-size:12px; }
+  footer { margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
+           font-size:12px; color:var(--dim); line-height:1.8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div style="float:right; margin-top:4px;">
+      <a href="unboxing-player.html" style="display:inline-block; padding:10px 22px; border-radius:99px; background:linear-gradient(135deg, #ffd166, #fb8500); color:#120914; text-decoration:none; font-weight:800; font-size:13px; box-shadow:0 6px 16px rgba(251,133,0,0.35);">体验 3D 沉浸式开盒互动 ➔</a>
+    </div>
+    <div class="kicker">McBox · Collectible Cards</div>
+    <h1>麦盒 · 卡面预览</h1>
+    <p class="sub">
+      每一张都是真实门店、真实价格、真实营养。<b>食物照片来自麦当劳 MCP 返回的官方 CDN 图</b>，
+      不做任何加工；卡框、系列色、稀有度光效、编号与水印是本项目程序化生成的原创视觉。
+      同一张卡可由 <code>种子 + 池指纹</code> 完整复现。
+    </p>
+    <p class="meta">数据：门店 1450713 ｜ 菜单落库 2026-10-24 18:22:17 ｜ 由 <code>scripts/make_assets.py</code> 生成</p>
+  </header>
+
+  <div class="grid">
+    <figure class="wide">
+      <img src="../assets/cards/box-chicken.svg" alt="脆鸡江湖 端盒 整盒 主食+小食+饮料">
+      <figcaption><span><span class="tag">端盒</span><b>整盒 主食+小食+饮料</b></span><span>¥40.9</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/unboxing-ssr.gif" alt="牛堡宇宙 动效 开盒揭晓动画 (GIF 动效)">
+      <figcaption><span><span class="tag">动效</span><b>开盒揭晓动画 (GIF 动效)</b></span><span>ANIMATED</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/package-chicken.svg" alt="脆鸡江湖 外盒 立体盲盒包装（开盒前）">
+      <figcaption><span><span class="tag">外盒</span><b>立体盲盒包装（开盒前）</b></span><span>UNBOX</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/beef-universe-SSR.svg" alt="牛堡宇宙 图腾 巨无霸">
+      <figcaption><span><span class="tag">图腾</span><b>巨无霸</b></span><span>BU-04/09</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/beef-universe-R.svg" alt="牛堡宇宙 人气 培根安格斯厚牛堡">
+      <figcaption><span><span class="tag">人气</span><b>培根安格斯厚牛堡</b></span><span>BU-01/09</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/beef-universe-N.svg" alt="牛堡宇宙 常驻 双层吉士汉堡">
+      <figcaption><span><span class="tag">常驻</span><b>双层吉士汉堡</b></span><span>BU-07/09</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/chicken-SR.svg" alt="脆鸡江湖 当期 马来咖喱风味薄皮肉骨鸡3块">
+      <figcaption><span><span class="tag">当期</span><b>马来咖喱风味薄皮肉骨鸡3块</b></span><span>CH-07/12</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/chicken-R.svg" alt="脆鸡江湖 人气 蘸酱麦麦脆汁鸡">
+      <figcaption><span><span class="tag">人气</span><b>蘸酱麦麦脆汁鸡</b></span><span>CH-12/12</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/chicken-N.svg" alt="脆鸡江湖 常驻 麦辣鸡翅">
+      <figcaption><span><span class="tag">常驻</span><b>麦辣鸡翅</b></span><span>CH-08/12</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/fries-snack-SSR.svg" alt="金黄薯界 图腾 薯条">
+      <figcaption><span><span class="tag">图腾</span><b>薯条</b></span><span>FS-02/06</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/fries-snack-R.svg" alt="金黄薯界 人气 脆脆薯条">
+      <figcaption><span><span class="tag">人气</span><b>脆脆薯条</b></span><span>FS-01/06</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/drinks-soda-SSR.svg" alt="气泡星海 图腾 麦当劳奶昔">
+      <figcaption><span><span class="tag">图腾</span><b>麦当劳奶昔</b></span><span>SD-01/07</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/drinks-soda-R.svg" alt="气泡星海 人气 锡兰红茶">
+      <figcaption><span><span class="tag">人气</span><b>锡兰红茶</b></span><span>SD-03/07</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/dessert-R.svg" alt="甜品星球 人气 经典麦旋风">
+      <figcaption><span><span class="tag">人气</span><b>经典麦旋风</b></span><span>SW-02/05</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/dessert-N.svg" alt="甜品星球 常驻 派">
+      <figcaption><span><span class="tag">常驻</span><b>派</b></span><span>SW-03/05</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/coffee-R.svg" alt="麦咖啡星系 人气 浓浓黑巧（冰/热）">
+      <figcaption><span><span class="tag">人气</span><b>浓浓黑巧（冰/热）</b></span><span>CF-03/05</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/combo-R.svg" alt="随心搭子 人气 大堡口福三件套">
+      <figcaption><span><span class="tag">人气</span><b>大堡口福三件套</b></span><span>CL-03/06</span></figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/cards/party-R.svg" alt="分享派对 人气 薄皮V翅双拼十翅">
+      <figcaption><span><span class="tag">人气</span><b>薄皮V翅双拼十翅</b></span><span>PT-02/04</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>食物图：官方，不画</h3>
+      <p><code>query-meals</code> 每项都返回 <code>image</code>，指向 <code>menu-img.mcd.cn</code>。
+      卡面直接 <code>&lt;image href&gt;</code> 嵌进去，不重绘、不生成、不裁切改造。</p>
+    </div>
+    <div class="note">
+      <h3>卡框：原创，必须自研</h3>
+      <p>官方只给白底商品抠图，没有"盲盒包装"这种物料。要做开盒，就必须自己造盒面——且不能伪造官方包装，
+      所以用 SVG 渐变 + pattern 程序化生成，1 秒出图、可复现、可换色。</p>
+    </div>
+    <div class="note">
+      <h3>属性：官方营养表</h3>
+      <p>能量 / 蛋白 / 脂肪 / 碳水来自 <code>list-nutrition-foods</code>。菜单名与营养表名只在
+      "唯一且后缀只是杯型/包装"时才映射（如 <code>可乐 → 可乐中杯</code>），且卡面写明依据。
+      套餐官方表未收录，就显示"品类 + 比原价省"——<b>绝不按名称估热量</b>。</p>
+    </div>
+    <div class="note">
+      <h3>稀有度：只是壳</h3>
+      <p>常驻 / 人气 / 当期 / 图腾 只改边框与文案，不影响你拿到什么、付多少钱，
+      也不代表官方发行量或限量。四档的真实概率由 <code>--odds</code> 按当前池子实算并公示（含保底）。</p>
+    </div>
+  </div>
+
+  <footer>
+    非官方产品 · 麦当劳程序员创意开发大赛参赛作品 · 商品信息以麦当劳官方渠道实时结果为准<br>
+    收藏记录是抽取历史，不代表购买记录，也不代表该商品当前仍在售。
+  </footer>
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@
   <a href="https://www.workbuddy.cn">
     <img src="https://img.shields.io/badge/WorkBuddy-AI_Skill-4A90E2?style=for-the-badge" alt="WorkBuddy Skill">
   </a>
-  <a href="../../LICENSE">
+  <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
   </a>
 </p>

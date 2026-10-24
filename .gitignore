@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Testing & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Temporary Files
+/tmp/
+*.tmp
+*.bak
+*~
+
+# Local McBox / PopMc Runtime State (用户本地生成的收藏历史与图片缓存不进代码库)
+.popmc/
+.mcbox/
