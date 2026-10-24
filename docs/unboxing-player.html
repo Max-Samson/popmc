@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>麦泡泡 PopMc · 麦当劳食物潮玩盲盒 3D 沉浸式开箱</title>
+<style>
+  :root {
+    --bg: #0e0a12;
+    --mcd-red: #DA291C;
+    --mcd-red-dark: #8F140C;
+    --mcd-yellow: #FFBC0D;
+    --mcd-gold: #FFD166;
+    --gold-glow: rgba(255, 188, 13, 0.55);
+    --line: rgba(255, 255, 255, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 20%, #2f0e14 0%, #12070a 60%, #060204 100%);
+    color: #ffffff;
+    font-family: "PingFang SC", "Noto Sans SC", -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 16px;
+    z-index: 10;
+  }
+  .tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--mcd-yellow);
+    background: rgba(255, 188, 13, 0.12);
+    border: 1px solid var(--gold-glow);
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 8px 0 4px;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+  p.sub {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* 3D 舞台与视口 */
+  .stage {
+    position: relative;
+    width: 380px;
+    height: 520px;
+    perspective: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 盲盒 3D 容器 */
+  .box-wrap {
+    position: absolute;
+    width: 270px;
+    height: 400px;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+  }
+  .box-wrap:hover {
+    filter: drop-shadow(0 16px 36px rgba(255, 188, 13, 0.35));
+  }
+
+  /* 盒顶经典双拱开心乐园餐提手 (Gable Arch Handle) */
+  .box-handle {
+    position: absolute;
+    top: -46px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 170px;
+    height: 48px;
+    background: linear-gradient(180deg, #ff3b2e, var(--mcd-red));
+    border-radius: 24px 24px 0 0;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-bottom: none;
+    box-shadow: 0 -4px 14px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .handle-hole {
+    width: 84px;
+    height: 20px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
+  }
+
+  /* 麦当劳经典红盒本体 */
+  .box-body {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 20%, #eb2c1e, var(--mcd-red) 65%, var(--mcd-red-dark) 100%);
+    border-radius: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 26px 50px rgba(0, 0, 0, 0.75), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px;
+    transform-origin: bottom center;
+    overflow: hidden;
+  }
+
+  /* 芝麻散落底纹 (Sesame Seed Texture) */
+  .sesame-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    background-image: 
+      radial-gradient(#fff4d0 2px, transparent 2px),
+      radial-gradient(#fff4d0 2px, transparent 2px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+  }
+
+  /* 薯条盒经典向外倾斜侧条 */
+  .box-side-stripe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 14px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.15), transparent);
+  }
+  .box-side-stripe.left { left: 0; }
+  .box-side-stripe.right { right: 0; transform: scaleX(-1); }
+
+  /* 顶部麦盒潮玩标徽 */
+  .box-header-badge {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .m-star {
+    font-size: 13px;
+    color: var(--mcd-yellow);
+  }
+  .m-brand {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  /* 核心问号展示橱窗 */
+  .box-window {
+    width: 100%;
+    height: 204px;
+    margin-top: 10px;
+    background: radial-gradient(circle at 50% 40%, rgba(26, 12, 14, 0.8), rgba(10, 4, 6, 0.95));
+    border-radius: 18px;
+    border: 2.5px solid var(--mcd-yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 188, 13, 0.25);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  /* 汉堡神秘剪影背景 (Burger Silhouette) */
+  .burger-silhouette {
+    position: absolute;
+    width: 160px;
+    height: 140px;
+    opacity: 0.14;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 85" fill="%23ffd166"><path d="M50 5 Q10 5 10 32 L90 32 Q90 5 50 5 Z M10 38 L90 38 Q95 44 90 48 L10 48 Q5 44 10 38 Z M8 54 L92 54 L90 62 L10 62 Z M14 68 L86 68 Q86 82 50 82 Q14 82 14 68 Z"/></svg>');
+  }
+
+  .box-window .q-mark {
+    font-size: 114px;
+    font-weight: 900;
+    font-family: Impact, sans-serif;
+    background: linear-gradient(135deg, #ffffff 0%, var(--mcd-yellow) 40%, #ff8800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-top: 10px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+    z-index: 2;
+  }
+  .box-window .q-sub {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--mcd-yellow);
+    margin-top: 2px;
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  }
+
+  /* 麦当劳外卖锯齿经典安全封条 (Zigzag Takeout Seal) */
+  .tear-tape {
+    width: calc(100% + 40px);
+    height: 36px;
+    background: repeating-linear-gradient(-45deg, #ffbc0d, #ffbc0d 12px, #f39c12 12px, #f39c12 24px);
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    color: #1a0808;
+    letter-spacing: 2px;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.45);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.45s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 0.4s ease;
+  }
+  .tear-tape::before, .tear-tape::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 3px;
+    background-size: 6px 3px;
+  }
+  .tear-tape::before { top: -3px; background-image: radial-gradient(circle at 3px 0, transparent 3px, #ffbc0d 3px); }
+  .tear-tape::after { bottom: -3px; background-image: radial-gradient(circle at 3px 3px, transparent 3px, #f39c12 3px); }
+
+  .box-footer-label {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+  .box-footer-sub {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 1px;
+    margin-top: 3px;
+    z-index: 2;
+  }
+
+  /* 点击开盒按钮 */
+  .btn-unbox {
+    margin-top: 22px;
+    padding: 15px 46px;
+    border-radius: 99px;
+    background: linear-gradient(135deg, #ffbc0d, #ff8800);
+    color: #120914;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(255, 188, 13, 0.45);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+  }
+  .btn-unbox:hover {
+    transform: scale(1.06);
+    box-shadow: 0 16px 36px rgba(255, 188, 13, 0.7);
+  }
+  .btn-unbox:active {
+    transform: scale(0.96);
+  }
+
+  /* 真实激烈物理摇盒动画 (Rattle & Clatter) */
+  @keyframes intenseShake {
+    0% { transform: rotate(0deg) translate(0, 0); }
+    15% { transform: rotate(-9deg) translate(-10px, -12px); }
+    30% { transform: rotate(9deg) translate(10px, -8px); }
+    45% { transform: rotate(-7deg) translate(-8px, -14px); }
+    60% { transform: rotate(7deg) translate(8px, -6px); }
+    75% { transform: rotate(-4deg) translate(-4px, -10px); }
+    90% { transform: rotate(4deg) translate(4px, -4px); }
+    100% { transform: rotate(0deg) translate(0, 0); }
+  }
+  .shaking {
+    animation: intenseShake 0.45s ease-in-out infinite;
+  }
+
+  /* 封条撕开两段崩散 */
+  .tape-torn {
+    transform: scaleX(0.05) rotate(15deg);
+    opacity: 0;
+  }
+
+  /* 盒顶爆开掀开 */
+  .box-body.opened {
+    animation: lidPop 0.6s forwards;
+  }
+
+  /* 喷射彩带与粒子 Canvas */
+  #fxCanvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 15;
+  }
+
+  /* 光芒爆发底图 */
+  .light-burst {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(255, 209, 102, 0.95) 0%, rgba(255, 188, 13, 0.45) 35%, rgba(218, 41, 28, 0.15) 55%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(0.2) rotate(0deg);
+    z-index: 5;
+  }
+  .light-burst.active {
+    opacity: 1;
+    transform: scale(1.45) rotate(120deg);
+  }
+
+  /* 揭晓的高清卡牌 3D 飞出与定格 */
+  .revealed-card {
+    position: absolute;
+    width: 296px;
+    height: 414px;
+    border-radius: 20px;
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85), 0 0 50px rgba(255, 188, 13, 0.65);
+    opacity: 0;
+    transform: translateY(140px) scale(0.15) rotateY(180deg) rotateZ(15deg);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    z-index: 20;
+  }
+  .revealed-card.shown {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateY(0deg) rotateZ(0deg);
+    pointer-events: auto;
+  }
+  .revealed-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 20px;
+  }
+
+  /* 操作条 */
+  .actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 25;
+  }
+  .actions.shown {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .btn-sec {
+    padding: 12px 26px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid var(--line);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-sec:hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  .hint {
+    margin-top: 14px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* 系列快速切换栏 */
+  .series-nav {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 500px;
+    z-index: 10;
+  }
+  .series-pill {
+    padding: 6px 14px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .series-pill:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+  }
+  .series-pill.active {
+    background: var(--mcd-yellow);
+    border-color: var(--mcd-yellow);
+    color: #120914;
+    box-shadow: 0 4px 12px rgba(255, 188, 13, 0.35);
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">PopMc · POPMART 3D UNBOXING · S1</div>
+  <h1>麦泡泡 · PopMc 3D 潮玩开盒</h1>
+  <p class="sub">Pop Your Meal · 经典红盒 · 摇晃听声 · 撕开封条 · 现制美味立刻揭晓</p>
+</header>
+
+<div class="stage" id="stage">
+  <canvas id="fxCanvas" width="380" height="520"></canvas>
+  <div class="light-burst" id="burst"></div>
+
+  <!-- 3D 麦当劳经典开盒外盒 -->
+  <div class="box-wrap" id="boxWrap" onclick="triggerUnbox()">
+    <!-- 开心乐园餐经典双拱提手 -->
+    <div class="box-handle">
+      <div class="handle-hole"></div>
+    </div>
+    <div class="box-body" id="boxBody">
+      <div class="sesame-layer"></div>
+      <div class="box-side-stripe left"></div>
+      <div class="box-side-stripe right"></div>
+
+      <!-- 头部标识 -->
+      <div class="box-header-badge">
+        <span class="m-star">✦</span>
+        <span class="m-brand">PopMc · S1</span>
+        <span class="m-star">✦</span>
+      </div>
+
+      <!-- 核心问号橱窗（带汉堡剪影） -->
+      <div class="box-window">
+        <div class="burger-silhouette"></div>
+        <div class="q-mark">?</div>
+        <div class="q-sub">WHO IS INSIDE</div>
+      </div>
+
+      <!-- 经典锯齿外带安全封条 -->
+      <div class="tear-tape" id="tape">✦ 撕开封条 · 探寻今日美味 ✦</div>
+
+      <!-- 底部系列标 -->
+      <div class="box-footer-label" id="boxSeriesName">
+        <span>牛堡宇宙</span>
+        <span style="color:var(--mcd-yellow); font-size:12px;">★</span>
+        <span>图腾出场</span>
+      </div>
+      <div class="box-footer-sub">门店实时在售池 · 抽中即可下单</div>
+    </div>
+  </div>
+
+  <!-- 揭晓的高清卡牌 -->
+  <div class="revealed-card" id="card">
+    <img src="../assets/cards/beef-universe-SSR.svg" alt="抽中的卡牌" id="cardImg">
+  </div>
+</div>
+
+<button class="btn-unbox" id="unboxBtn" onclick="triggerUnbox()">立即拆盒 (TAP TO UNBOX)</button>
+
+<div class="actions" id="actions">
+  <button class="btn-sec" onclick="resetBox()">再摇一盒 (RETRY)</button>
+  <button class="btn-sec" style="background:linear-gradient(135deg, #ffbc0d, #ff8800); color:#120914; font-weight:900;" onclick="alert('进入下单确认：已为您锁定当前抽中美味！')">立即下单品尝</button>
+</div>
+
+
+<!-- 9 大盲盒系列快速换盒器 -->
+<div class="series-nav" id="seriesNav">
+  <span class="series-pill active" onclick="switchSeries('beef-universe')">牛堡宇宙</span>
+  <span class="series-pill" onclick="switchSeries('chicken')">脆鸡江湖</span>
+  <span class="series-pill" onclick="switchSeries('fries-snack')">金黄薯界</span>
+  <span class="series-pill" onclick="switchSeries('drinks-soda')">气泡星海</span>
+  <span class="series-pill" onclick="switchSeries('dessert')">甜品星球</span>
+  <span class="series-pill" onclick="switchSeries('coffee')">麦咖啡</span>
+  <span class="series-pill" onclick="switchSeries('combo')">随心搭子</span>
+  <span class="series-pill" onclick="switchSeries('party')">分享派对</span>
+</div>
+
+<div class="hint">提示：PC 端在盒子上轻晃鼠标可体验 3D 重力倾斜视角</div>
+
+<script>
+
+  // Web Audio API 纯代码合成潮玩开盒音效（零外部 MP3 依赖）
+  let audioCtx = null;
+  function getAudioCtx() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  // 1. 摇盒骨碌碌听声音
+  function playShakeSound() {
+    try {
+      const ctx = getAudioCtx();
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(140 + Math.random() * 80, ctx.currentTime);
+          gain.gain.setValueAtTime(0.18, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.08);
+        }, i * 90);
+      }
+    } catch(e) {}
+  }
+
+  // 2. 封条撕开爆破音
+  function playTearSound() {
+    try {
+      const ctx = getAudioCtx();
+      const node = ctx.createBufferSource();
+      const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.15, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < buffer.length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.04));
+      }
+      node.buffer = buffer;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      node.connect(gain);
+      gain.connect(ctx.destination);
+      node.start();
+    } catch(e) {}
+  }
+
+  // 3. 揭晓神光登场音 (金光胜利大三和弦)
+  function playFanfareSound() {
+    try {
+      const ctx = getAudioCtx();
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25]; // C E G C E
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          gain.gain.setValueAtTime(0.22, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.6);
+        }, idx * 75);
+      });
+    } catch(e) {}
+  }
+
+
+  const seriesConfig = {
+    'beef-universe': { name: '牛堡宇宙', sub: '图腾出场', bg: 'radial-gradient(circle at 50% 20%, #eb2c1e, #DA291C 65%, #8F140C 100%)', handle: 'linear-gradient(180deg, #ff3b2e, #DA291C)', card: '../assets/cards/beef-universe-SSR.svg' },
+    'chicken': { name: '脆鸡江湖', sub: '咔嚓开箱', bg: 'radial-gradient(circle at 50% 20%, #e65100, #D2461F 65%, #8d2b0e 100%)', handle: 'linear-gradient(180deg, #ff6d00, #D2461F)', card: '../assets/cards/chicken-SR.svg' },
+    'fries-snack': { name: '金黄薯界', sub: '灵魂薯条', bg: 'radial-gradient(circle at 50% 20%, #d90429, #c8102e 65%, #7a0014 100%)', handle: 'linear-gradient(180deg, #ef233c, #c8102e)', card: '../assets/cards/chicken-N.svg' },
+    'drinks-soda': { name: '气泡星海', sub: '快乐气泡', bg: 'radial-gradient(circle at 50% 20%, #1f4e78, #0B3C5D 65%, #051c2c 100%)', handle: 'linear-gradient(180deg, #2e6fa7, #0B3C5D)', card: '../assets/cards/beef-universe-R.svg' },
+    'dessert': { name: '甜品星球', sub: '甜味基础设施', bg: 'radial-gradient(circle at 50% 20%, #f78fb3, #e55039 65%, #631c2c 100%)', handle: 'linear-gradient(180deg, #ff9ff3, #f78fb3)', card: '../assets/cards/dessert-R.svg' },
+    'coffee': { name: '麦咖啡', sub: '第二供电线', bg: 'radial-gradient(circle at 50% 20%, #5d4037, #3E2723 65%, #1a0f0d 100%)', handle: 'linear-gradient(180deg, #8d6e63, #3E2723)', card: '../assets/cards/coffee-R.svg' },
+    'combo': { name: '随心搭子', sub: '预算之内惊喜之外', bg: 'radial-gradient(circle at 50% 20%, #2e8b57, #1E8E7E 65%, #0b3d36 100%)', handle: 'linear-gradient(180deg, #3cb371, #1E8E7E)', card: '../assets/cards/combo-R.svg' },
+    'party': { name: '分享派对', sub: '一桌人一盒运气', bg: 'radial-gradient(circle at 50% 20%, #7b1fa2, #5B4B8A 65%, #281d45 100%)', handle: 'linear-gradient(180deg, #ab47bc, #5B4B8A)', card: '../assets/cards/party-R.svg' }
+  };
+
+  function switchSeries(id) {
+    if (isUnboxed || isShaking) resetBox();
+    document.querySelectorAll('.series-pill').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    const cfg = seriesConfig[id];
+    if (!cfg) return;
+
+    boxBody.style.background = cfg.bg;
+    document.querySelector('.box-handle').style.background = cfg.handle;
+    document.getElementById('boxSeriesName').innerHTML = `<span>${cfg.name}</span><span style="color:var(--mcd-yellow); font-size:12px;">★</span><span>${cfg.sub}</span>`;
+    cardImg.src = cfg.card;
+  }
+
+  let isUnboxed = false;
+  let isShaking = false;
+
+  const stage = document.getElementById('stage');
+  const boxWrap = document.getElementById('boxWrap');
+  const boxBody = document.getElementById('boxBody');
+  const tape = document.getElementById('tape');
+  const burst = document.getElementById('burst');
+  const card = document.getElementById('card');
+  const cardImg = document.getElementById('cardImg');
+  const unboxBtn = document.getElementById('unboxBtn');
+  const actions = document.getElementById('actions');
+  const canvas = document.getElementById('fxCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // 3D 鼠标重力陀螺仪微动效果
+  stage.addEventListener('mousemove', (e) => {
+    if (isUnboxed) return;
+    const rect = stage.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotY = (x / (rect.width / 2)) * 16;
+    const rotX = -(y / (rect.height / 2)) * 16;
+    boxWrap.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  });
+
+  stage.addEventListener('mouseleave', () => {
+    if (isUnboxed) return;
+    boxWrap.style.transform = `rotateX(0deg) rotateY(0deg)`;
+  });
+
+  // 粒子系统：麦当劳红金色纸屑与金光散落 (Confetti)
+  let particles = [];
+  function createConfetti() {
+    particles = [];
+    const colors = ['#ffbc0d', '#da291c', '#ffd166', '#ffffff', '#ff8800', '#ff9ce6'];
+    for (let i = 0; i < 70; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2 + 20,
+        vx: (Math.random() - 0.5) * 14,
+        vy: -Math.random() * 14 - 4,
+        size: Math.random() * 7 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        vRot: (Math.random() - 0.5) * 12,
+        alpha: 1
+      });
+    }
+  }
+
+  function renderParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.45; // 重力
+      p.rotation += p.vRot;
+      p.alpha -= 0.018;
+      if (p.alpha > 0) {
+        alive = true;
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation * Math.PI / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+        ctx.restore();
+      }
+    });
+    if (alive) {
+      requestAnimationFrame(renderParticles);
+    }
+  }
+
+  // 盲盒开箱主流程
+  function triggerUnbox() {
+    if (isUnboxed || isShaking) return;
+    isShaking = true;
+    unboxBtn.style.pointerEvents = 'none';
+    unboxBtn.innerText = '正在感应摇盒中...';
+
+    // 1. 剧烈摇盒 (Shake)
+    boxWrap.classList.add('shaking');
+    playShakeSound();
+
+    setTimeout(() => {
+      // 2. 撕裂封条
+      boxWrap.classList.remove('shaking');
+      tape.classList.add('tape-torn');
+      playTearSound();
+
+      setTimeout(() => {
+        // 3. 神光爆发 & 粒子彩屑喷射
+        burst.classList.add('active');
+        createConfetti();
+        renderParticles();
+
+        boxWrap.style.transition = 'transform 0.55s ease, opacity 0.5s ease';
+        boxWrap.style.transform = 'translateY(80px) scale(0.55) rotateX(25deg)';
+        boxWrap.style.opacity = '0';
+
+        setTimeout(() => {
+          // 4. 卡牌飞升亮相 (Ascent & Reveal)
+          card.classList.add('shown');
+          playFanfareSound();
+          isUnboxed = true;
+          isShaking = false;
+          unboxBtn.style.display = 'none';
+          actions.classList.add('shown');
+        }, 320);
+      }, 360);
+    }, 750);
+  }
+
+  // 重置开盒
+  function resetBox() {
+    isUnboxed = false;
+    isShaking = false;
+    card.classList.remove('shown');
+    burst.classList.remove('active');
+    actions.classList.remove('shown');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    unboxBtn.style.display = 'inline-block';
+    unboxBtn.style.pointerEvents = 'auto';
+    unboxBtn.innerText = '立即拆盒 (TAP TO UNBOX)';
+
+    tape.classList.remove('tape-torn');
+    boxWrap.style.transition = 'all 0.5s ease';
+    boxWrap.style.transform = 'translateY(0) scale(1) rotateX(0deg) rotateY(0deg)';
+    boxWrap.style.opacity = '1';
+
+    // 随机轮换展示卡牌
+    const samples = [
+      '../assets/cards/beef-universe-SSR.svg',
+      '../assets/cards/chicken-SR.svg',
+      '../assets/cards/dessert-R.svg',
+      '../assets/cards/box-chicken.svg'
+    ];
+    const pick = samples[Math.floor(Math.random() * samples.length)];
+    cardImg.src = pick;
+  }
+</script>
+
+</body>
+</html>
