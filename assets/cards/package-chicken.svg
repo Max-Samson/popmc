@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="840" viewBox="0 0 600 840">
+  <defs>
+    <!-- 背景聚光灯：深邃暗红到黑 -->
+    <radialGradient id="pkg_bg" cx="50%" cy="25%" r="80%">
+      <stop offset="0%" stop-color="#3b0f15"/>
+      <stop offset="55%" stop-color="#140609"/>
+      <stop offset="100%" stop-color="#050203"/>
+    </radialGradient>
+
+    <!-- 盒体立体光感：中央明艳，两侧深邃 -->
+    <radialGradient id="box_surface" cx="50%" cy="25%" r="75%">
+      <stop offset="0%" stop-color="#fa382c"/>
+      <stop offset="60%" stop-color="#da291c"/>
+      <stop offset="100%" stop-color="#8a1107"/>
+    </radialGradient>
+
+    <linearGradient id="box_gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="35%" stop-color="#ffbc0d"/>
+      <stop offset="70%" stop-color="#f39c12"/><stop offset="100%" stop-color="#b86a04"/>
+    </linearGradient>
+
+    <linearGradient id="tape_zigzag" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffbc0d"/><stop offset="50%" stop-color="#ffd166"/><stop offset="100%" stop-color="#f39c12"/>
+    </linearGradient>
+
+    <!-- 芝麻点阵纹理 -->
+    <pattern id="sesame_dots" width="30" height="30" patternUnits="userSpaceOnUse">
+      <ellipse cx="6" cy="6" rx="2" ry="3" fill="#fff4d0" opacity="0.22" transform="rotate(25 6 6)"/>
+      <ellipse cx="21" cy="21" rx="2" ry="3" fill="#fff4d0" opacity="0.22" transform="rotate(-30 21 21)"/>
+    </pattern>
+
+    <filter id="box_3d"><feDropShadow dx="0" dy="28" stdDeviation="30" flood-color="#000000" flood-opacity="0.68"/></filter>
+  </defs>
+
+  <!-- 1. 背景 -->
+  <rect width="600" height="840" rx="32" fill="url(#pkg_bg)"/>
+
+  <!-- 2. 顶部系列潮流标 -->
+  <text x="300" y="58" font-size="12" font-weight="800" fill="#FFBC0D" letter-spacing="4" text-anchor="middle"
+        font-family="PingFang SC, Noto Sans SC, sans-serif">MCDONALD'S REAL IN-STORE FOOD</text>
+  <text x="300" y="92" font-size="28" font-weight="900" fill="#ffffff" letter-spacing="2" text-anchor="middle"
+        font-family="PingFang SC, Noto Sans SC, sans-serif">脆鸡江湖 · 盲盒</text>
+  <text x="300" y="118" font-size="13" fill="#ffffff" opacity="0.75" text-anchor="middle"
+        font-family="PingFang SC, Noto Sans SC, sans-serif">咔嚓声，是开箱的预告</text>
+
+  <!-- 3. 立体麦当劳开心乐园盒身 (Happy Meal Style Gable Box) -->
+  <g filter="url(#box_3d)" transform="translate(125, 145)">
+    <!-- 盒体物理投影 -->
+    <ellipse cx="175" cy="530" rx="170" ry="24" fill="#000000" opacity="0.7"/>
+
+    <!-- 开心乐园餐经典双拱提手 (Gable Handle) -->
+    <path d="M 65 38 L 285 38 Q 285 -10 175 -10 Q 65 -10 65 38 Z" fill="#eb2c1e" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+    <!-- 拱中镂空把手 -->
+    <path d="M 120 24 Q 120 4 175 4 Q 230 4 230 24 Q 230 30 175 30 Q 120 30 120 24 Z" fill="#0a0305" opacity="0.55"/>
+
+    <!-- 盒体主方块 -->
+    <rect x="20" y="36" width="310" height="470" rx="24" fill="url(#box_surface)"/>
+    <rect x="20" y="36" width="310" height="470" rx="24" fill="url(#sesame_dots)"/>
+    <rect x="20" y="36" width="310" height="470" rx="24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+
+    <!-- 两侧经典向外扩散的高光线条 -->
+    <line x1="22" y1="38" x2="36" y2="504" stroke="#ffffff" stroke-width="4" opacity="0.18"/>
+    <line x1="328" y1="38" x2="314" y2="504" stroke="#ffffff" stroke-width="4" opacity="0.18"/>
+
+    <!-- 顶部麦泡泡徽标 -->
+    <text x="175" y="68" font-size="12" font-weight="900" fill="#ffffff" letter-spacing="3" text-anchor="middle"
+          font-family="PingFang SC, Noto Sans SC, sans-serif">★ PopMc · S1 ★</text>
+
+    <!-- 问号橱窗：内含汉堡轮廓剪影 -->
+    <g transform="translate(45, 82)">
+      <rect x="0" y="0" width="260" height="280" rx="20" fill="#0b0406" opacity="0.85"/>
+      <rect x="0" y="0" width="260" height="280" rx="20" fill="none" stroke="#FFBC0D" stroke-width="2.5" opacity="0.9"/>
+      
+      <!-- 汉堡神秘剪影 -->
+      <path d="M 130 65 Q 60 65 60 105 L 200 105 Q 200 65 130 65 Z" fill="#FFBC0D" opacity="0.12"/>
+      <path d="M 58 115 L 202 115 Q 210 125 202 135 L 58 135 Q 50 125 58 115 Z" fill="#FFBC0D" opacity="0.12"/>
+      <path d="M 65 150 L 195 150 Q 195 180 130 180 Q 65 180 65 150 Z" fill="#FFBC0D" opacity="0.12"/>
+
+      <!-- 潮玩大问号 -->
+      <text x="130" y="195" font-size="132" font-weight="900" fill="url(#box_gold)" text-anchor="middle"
+            font-family="Impact, PingFang SC, sans-serif">?</text>
+      <text x="130" y="238" font-size="11" font-weight="800" fill="#FFBC0D" text-anchor="middle" letter-spacing="3"
+            font-family="PingFang SC, Noto Sans SC, sans-serif">WHO IS INSIDE</text>
+    </g>
+
+    <!-- 经典外卖红黄锯齿安全封条 (Zigzag Takeout Seal) -->
+    <g transform="translate(20, 382)">
+      <rect x="0" y="0" width="310" height="38" fill="url(#tape_zigzag)"/>
+      <text x="155" y="24" font-size="12" font-weight="900" fill="#140808" letter-spacing="3" text-anchor="middle"
+            font-family="PingFang SC, Noto Sans SC, sans-serif">✦ 麦麦开盒 · 现制美味 ✦</text>
+    </g>
+
+    <!-- 底部认证与池子说明 -->
+    <g transform="translate(45, 436)">
+      <text x="130" y="24" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle"
+            font-family="PingFang SC, Noto Sans SC, sans-serif">脆鸡江湖 · 现制在售池</text>
+      <text x="130" y="44" font-size="10" fill="#FFBC0D" opacity="0.9" text-anchor="middle"
+            font-family="PingFang SC, Noto Sans SC, sans-serif">AUTHENTIC MCDONALD'S REAL FOOD</text>
+    </g>
+  </g>
+
+  <!-- 底部开盒引导 -->
+  <text x="300" y="784" font-size="18" font-weight="800" fill="#FFBC0D" letter-spacing="2" text-anchor="middle"
+        font-family="PingFang SC, Noto Sans SC, sans-serif">晃动盲盒 · 探寻今日美味</text>
+  <text x="300" y="820" font-size="11" fill="#ffffff" opacity="0.45" text-anchor="middle"
+        font-family="PingFang SC, Noto Sans SC, sans-serif">非官方产品 · 参赛作品 · 盲盒为概念视觉设计，内含真实麦当劳在售餐品</text>
+</svg>

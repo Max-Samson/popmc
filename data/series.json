@@ -1,0 +1,331 @@
+{
+  "schemaVersion": "1.0.0",
+  "note": "categories / excludeNameKeywords 中的分类名已按 norm() 归一化（去掉换行、斜杠、™）。series 顺序即用户选择顺序。",
+  "series": [
+    {
+      "id": "beef-universe",
+      "name": "牛堡宇宙",
+      "code": "BU",
+      "season": "S1",
+      "tagline": "两层牛肉，一个宇宙",
+      "palette": {
+        "base": "#8B1E2D",
+        "accent": "#F2C14E",
+        "glow": "#FF6B4A"
+      },
+      "match": {
+        "categories": [
+          "巨无霸牛鱼肉堡",
+          "安格斯MAX厚牛堡"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [
+          "套餐",
+          "三件套",
+          "四件套",
+          "随心选",
+          "随心配"
+        ],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "1100",
+          "rarity": "SSR",
+          "title": "图腾·巨无霸",
+          "copy": "两层牛肉，一个宇宙。传说就该这样出场。"
+        }
+      ],
+      "minPoolSize": 4
+    },
+    {
+      "id": "chicken",
+      "name": "脆鸡江湖",
+      "code": "CH",
+      "season": "S1",
+      "tagline": "咔嚓声，是开箱的预告",
+      "palette": {
+        "base": "#D2461F",
+        "accent": "#F5A623",
+        "glow": "#FFB03A"
+      },
+      "match": {
+        "categories": [
+          "炸鸡",
+          "蘸酱炸鸡",
+          "鸡肉汉堡卷"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [
+          "套餐",
+          "三件套",
+          "四件套",
+          "随心选"
+        ],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "1440",
+          "rarity": "SSR",
+          "title": "图腾·麦辣鸡腿堡",
+          "copy": "辣得有分寸。江湖规矩，先脆后香。"
+        }
+      ],
+      "minPoolSize": 4
+    },
+    {
+      "id": "dessert",
+      "name": "甜品星球",
+      "code": "SW",
+      "season": "S1",
+      "tagline": "甜味不是奖励，是基础设施",
+      "palette": {
+        "base": "#F7A8B8",
+        "accent": "#FFF4E6",
+        "glow": "#FFC9D8"
+      },
+      "match": {
+        "categories": [],
+        "kinds": [
+          "dessert"
+        ],
+        "excludeNameKeywords": [
+          "第二份"
+        ],
+        "excludeTags": []
+      },
+      "pinned": [
+        {
+          "productCode": "515837",
+          "rarity": "SSR",
+          "title": "图腾·圆筒",
+          "copy": "五块钱的快乐，也是宇宙级。"
+        }
+      ],
+      "minPoolSize": 3
+    },
+    {
+      "id": "fries-snack",
+      "name": "金黄薯界",
+      "code": "FS",
+      "season": "S1",
+      "tagline": "世界上只有两种人：爱吃薯条的和还没吃薯条的",
+      "palette": {
+        "base": "#C8102E",
+        "accent": "#FFBC0D",
+        "glow": "#FFD166"
+      },
+      "match": {
+        "categories": [
+          "小食甜品其他"
+        ],
+        "kinds": [
+          "side"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [
+          "派",
+          "圆筒",
+          "麦旋风",
+          "冰淇淋"
+        ],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "4810",
+          "rarity": "SSR",
+          "title": "图腾·经典薯条",
+          "copy": "刚出锅的三分钟，每一根都是灵魂。"
+        }
+      ],
+      "minPoolSize": 3
+    },
+    {
+      "id": "coffee",
+      "name": "麦咖啡星系",
+      "code": "CF",
+      "season": "S1",
+      "tagline": "打工人的第二条供电线",
+      "palette": {
+        "base": "#3E2723",
+        "accent": "#C8A97E",
+        "glow": "#E8C89B"
+      },
+      "match": {
+        "categories": [
+          "麦咖啡"
+        ],
+        "kinds": [
+          "drink"
+        ],
+        "excludeNameKeywords": [
+          "阿芙佳朵",
+          "雪冰"
+        ],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "507409",
+          "rarity": "SSR",
+          "title": "图腾·奶铁",
+          "copy": "咖啡和奶，各让一步。刚好接住今天。"
+        }
+      ],
+      "minPoolSize": 3
+    },
+    {
+      "id": "drinks-soda",
+      "name": "气泡星海",
+      "code": "SD",
+      "season": "S1",
+      "tagline": "气泡爆开的一瞬，疲惫烟消云散",
+      "palette": {
+        "base": "#0B3C5D",
+        "accent": "#328CC1",
+        "glow": "#66FCF1"
+      },
+      "match": {
+        "categories": [
+          "饮品"
+        ],
+        "kinds": [
+          "drink"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "9900014092",
+          "rarity": "SSR",
+          "title": "图腾·麦当劳奶昔",
+          "copy": "一口回到小时候，浓郁得无需解释。"
+        }
+      ],
+      "minPoolSize": 3
+    },
+    {
+      "id": "combo",
+      "name": "随心搭子",
+      "code": "CL",
+      "season": "S1",
+      "tagline": "预算之内，惊喜之外",
+      "palette": {
+        "base": "#1E8E7E",
+        "accent": "#F2E8CF",
+        "glow": "#3FBFAA"
+      },
+      "match": {
+        "categories": [
+          "随心配1+1",
+          "大堡口福单人餐",
+          "500大卡套餐"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "9900013304",
+          "rarity": "SSR",
+          "title": "图腾·随心配",
+          "copy": "百种组合，你只要一次命中。"
+        }
+      ],
+      "minPoolSize": 3
+    },
+    {
+      "id": "party",
+      "name": "分享派对",
+      "code": "PT",
+      "season": "S1",
+      "tagline": "一桌人，一盒运气",
+      "palette": {
+        "base": "#5B4B8A",
+        "accent": "#FFD166",
+        "glow": "#8F7FD1"
+      },
+      "match": {
+        "categories": [
+          "小食拼盘多人餐",
+          "开心乐园"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "widen": {
+        "kinds": [
+          "combo"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "9900015730",
+          "rarity": "SSR",
+          "title": "图腾·BFF 四宫格",
+          "copy": "四个格子，四种和好方式。"
+        }
+      ],
+      "minPoolSize": 3
+    },
+    {
+      "id": "breakfast",
+      "name": "晨光早餐",
+      "code": "AM",
+      "season": "S1",
+      "tagline": "十点半以前，世界还讲道理",
+      "availableWindow": [
+        "05:00",
+        "10:30"
+      ],
+      "palette": {
+        "base": "#2E6FA7",
+        "accent": "#FFE08A",
+        "glow": "#6FA8DC"
+      },
+      "match": {
+        "categories": [
+          "早餐"
+        ],
+        "tagsAny": [],
+        "excludeNameKeywords": [
+          "套餐",
+          "三件套",
+          "全餐"
+        ],
+        "excludeTags": [
+          "麦金卡"
+        ]
+      },
+      "pinned": [
+        {
+          "productCode": "1200",
+          "rarity": "SSR",
+          "title": "图腾·猪柳蛋麦满分",
+          "copy": "早安。今天从一枚圆蛋开始。"
+        }
+      ],
+      "minPoolSize": 3
+    }
+  ]
+}

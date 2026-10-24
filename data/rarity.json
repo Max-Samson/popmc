@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "tiers": [
+    { "id": "N", "label": "常驻", "weight": 70.0, "frame": "plain" },
+    { "id": "R", "label": "人气", "weight": 22.0, "frame": "silver" },
+    { "id": "SR", "label": "当期", "weight": 6.5, "frame": "gold" },
+    { "id": "SSR", "label": "图腾", "weight": 1.5, "frame": "prism" }
+  ],
+  "pity": { "R_or_above_every": 10, "SSR_every": 50 },
+  "rules": {
+    "SR": { "tagsAny": ["上新"] },
+    "R": {
+      "tagsAny": ["爆款", "人气", "经典", "限时特惠"],
+      "discountRatioGte": 1.4,
+      "pricePercentileGte": 0.7
+    }
+  },
+  "note": "判定顺序 pinned → SR → R（tags / 折扣比 / 价格分位 任一命中）→ N。稀有度只影响视觉与文案，不影响商品、份量与价格。"
+}

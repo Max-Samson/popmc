@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "1.0.0",
+  "note": "情绪只影响两件事：① 候选系列的选择权重；② 文案语气。它不修改任何商品事实，也不改变候选池的硬约束（预算/排除/可售）。",
+  "defaultMood": "random",
+  "moods": [
+    {
+      "id": "hungry",
+      "label": "超饿/要扎实",
+      "keywords": [
+        "饿",
+        "好饿",
+        "饿扁了",
+        "吃饱",
+        "顶饱",
+        "扎实",
+        "主食",
+        "量大",
+        "能量告急"
+      ],
+      "seriesBoost": {
+        "beef-universe": 4,
+        "combo": 3,
+        "chicken": 2
+      },
+      "avoidKinds": [
+        "drink",
+        "dessert"
+      ],
+      "tone": "up"
+    },
+    {
+      "id": "snack",
+      "label": "嘴馋/想吃小食",
+      "keywords": [
+        "小食",
+        "嘴馋",
+        "零食",
+        "薯条",
+        "鸡块",
+        "垫垫",
+        "下午小吃",
+        "嚼点"
+      ],
+      "seriesBoost": {
+        "fries-snack": 5,
+        "chicken": 2
+      },
+      "avoidKinds": [
+        "main",
+        "combo"
+      ],
+      "tone": "short"
+    },
+    {
+      "id": "thirsty",
+      "label": "口渴/想喝快乐水",
+      "keywords": [
+        "渴",
+        "口渴",
+        "喝水",
+        "饮料",
+        "可乐",
+        "雪碧",
+        "快乐水",
+        "气泡",
+        "解渴",
+        "解腻"
+      ],
+      "seriesBoost": {
+        "drinks-soda": 5,
+        "coffee": 2
+      },
+      "avoidKinds": [
+        "main",
+        "combo"
+      ],
+      "tone": "short"
+    },
+    {
+      "id": "budget",
+      "label": "穷鬼/省钱",
+      "keywords": [
+        "省钱",
+        "便宜",
+        "预算低",
+        "吃土",
+        "划算",
+        "性价比",
+        "穷鬼",
+        "1+1",
+        "随心配"
+      ],
+      "seriesBoost": {
+        "combo": 5,
+        "dessert": 2,
+        "fries-snack": 2
+      },
+      "avoidKinds": [],
+      "tone": "dry"
+    },
+    {
+      "id": "tired",
+      "label": "疲惫",
+      "keywords": [
+        "累",
+        "疲惫",
+        "加班",
+        "没力气",
+        "省心",
+        "不想动",
+        "摆烂"
+      ],
+      "seriesBoost": {
+        "combo": 3,
+        "chicken": 2,
+        "coffee": 2,
+        "dessert": 1
+      },
+      "avoidKinds": [],
+      "tone": "soft"
+    },
+    {
+      "id": "happy",
+      "label": "开心/庆祝",
+      "keywords": [
+        "开心",
+        "庆祝",
+        "发工资",
+        "请客",
+        "高兴",
+        "奖励自己",
+        "值得",
+        "周末",
+        "放假",
+        "开黑"
+      ],
+      "seriesBoost": {
+        "party": 4,
+        "beef-universe": 3,
+        "dessert": 2
+      },
+      "avoidKinds": [],
+      "tone": "up"
+    },
+    {
+      "id": "spicy",
+      "label": "想刺激/重口",
+      "keywords": [
+        "刺激",
+        "重口",
+        "辣",
+        "猛的",
+        "够味",
+        "上头",
+        "无辣不欢"
+      ],
+      "seriesBoost": {
+        "chicken": 4,
+        "party": 1
+      },
+      "avoidKinds": [],
+      "tone": "short"
+    },
+    {
+      "id": "sweet",
+      "label": "想甜/回血",
+      "keywords": [
+        "甜",
+        "甜品",
+        "心情不好",
+        "难过",
+        "冰淇淋",
+        "想被哄",
+        "吃糖",
+        "麦旋风"
+      ],
+      "seriesBoost": {
+        "dessert": 5,
+        "drinks-soda": 2
+      },
+      "avoidKinds": [],
+      "tone": "soft"
+    },
+    {
+      "id": "coffee",
+      "label": "需要咖啡因",
+      "keywords": [
+        "困",
+        "提神",
+        "下午",
+        "睁不开眼",
+        "续命",
+        "打工人",
+        "咖啡",
+        "奶铁",
+        "美式"
+      ],
+      "seriesBoost": {
+        "coffee": 4,
+        "dessert": 1
+      },
+      "avoidKinds": [],
+      "tone": "dry"
+    },
+    {
+      "id": "random",
+      "label": "随缘",
+      "keywords": [
+        "无所谓",
+        "都行",
+        "你定",
+        "随便",
+        "看运气",
+        "摇一个"
+      ],
+      "seriesBoost": {},
+      "avoidKinds": [],
+      "tone": "neutral"
+    }
+  ],
+  "tones": {
+    "soft": "轻、短、不追问，像朋友递过来一份吃的",
+    "up": "上扬、有梗，允许一个小反转",
+    "short": "短促、动词多，不解释",
+    "dry": "冷静、幽默，带一点自嘲",
+    "neutral": "中性、克制，不强行制造情绪"
+  }
+}
